@@ -1,0 +1,13 @@
+server:
+  port: 8085
+
+coin-market-cap:
+  base-url: "https://pro-api.coinmarketcap.com"
+  get-quote-by-symbol-endpoint: "/v1/cryptocurrency/quotes/latest"
+  api-key: "a4e47b69-656e-47ca-a021-9ea4d7beae77"
+
+spring:
+  data:
+    mongodb:
+      auto-index-creation: true
+      uri: mongodb://localhost:27017/coin_tracker
