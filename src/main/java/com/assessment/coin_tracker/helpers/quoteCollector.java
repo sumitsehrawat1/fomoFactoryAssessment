@@ -85,15 +85,19 @@ public class quoteCollector {
 
     private void saveQuoteHistory(CollectQuoteResponseDTO responseDTO, String pollId) {
         responseDTO.getData().forEach((symbol, cryptoData) -> {
-            CRYPTO crypto = CRYPTO.convertToCrypto(symbol);
+            try {
+                CRYPTO crypto = CRYPTO.convertToCrypto(symbol);
 
-            QuoteHistory quoteHistory = new QuoteHistory();
-            quoteHistory.setCrypto(crypto);
-            quoteHistory.setResponseData(cryptoData);
-            quoteHistory.setCreatedAt(new Date());
-            quoteHistory.setPollId(pollId);
+                QuoteHistory quoteHistory = new QuoteHistory();
+                quoteHistory.setCrypto(crypto);
+                quoteHistory.setResponseData(cryptoData);
+                quoteHistory.setCreatedAt(new Date());
+                quoteHistory.setPollId(pollId);
 
-            quoteHistoryRepository.save(quoteHistory);
+                quoteHistoryRepository.save(quoteHistory);
+            } catch (Exception e) {
+                log.error("Exception occurred while saving quotes for pollId : {}, symbol :{}", pollId, symbol,e);
+            }
         });
     }
 }
